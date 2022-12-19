@@ -1,0 +1,70 @@
+{
+	"name": "rawcsvtocleansedparquet",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "purchaseheader.csv",
+				"folderPath": "RAW",
+				"fileSystem": "container1"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "PurchaseOrderID",
+				"type": "String"
+			},
+			{
+				"name": "PurchaseOrderDetailID",
+				"type": "String"
+			},
+			{
+				"name": "DueDate",
+				"type": "String"
+			},
+			{
+				"name": "OrderQty",
+				"type": "String"
+			},
+			{
+				"name": "ProductID",
+				"type": "String"
+			},
+			{
+				"name": "UnitPrice",
+				"type": "String"
+			},
+			{
+				"name": "LineTotal",
+				"type": "String"
+			},
+			{
+				"name": "ReceivedQty",
+				"type": "String"
+			},
+			{
+				"name": "RejectedQty",
+				"type": "String"
+			},
+			{
+				"name": "StockedQty",
+				"type": "String"
+			},
+			{
+				"name": "ModifiedDate",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

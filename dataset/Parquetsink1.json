@@ -1,0 +1,115 @@
+{
+	"name": "Parquetsink1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "part-00000-f051e559-c8b9-4e2a-a97e-c93afb337612-c000.snappy.parquet",
+				"folderPath": "CURATED",
+				"fileSystem": "container1"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "PurchaseOrderID",
+				"type": "INT32"
+			},
+			{
+				"name": "RevisionNumber",
+				"type": "INT32"
+			},
+			{
+				"name": "Status",
+				"type": "INT32"
+			},
+			{
+				"name": "EmployeeID",
+				"type": "INT32"
+			},
+			{
+				"name": "VendorID",
+				"type": "INT32"
+			},
+			{
+				"name": "ShipMethodID",
+				"type": "INT32"
+			},
+			{
+				"name": "OrderDate",
+				"type": "DATE"
+			},
+			{
+				"name": "ShipDate",
+				"type": "DATE"
+			},
+			{
+				"name": "SubTotal",
+				"type": "INT32"
+			},
+			{
+				"name": "TaxAmt",
+				"type": "UTF8"
+			},
+			{
+				"name": "Freight",
+				"type": "INT32"
+			},
+			{
+				"name": "TotalDue",
+				"type": "INT32"
+			},
+			{
+				"name": "ModifiedDate",
+				"type": "UTF8"
+			},
+			{
+				"name": "seq_id",
+				"type": "INT64"
+			},
+			{
+				"name": "PurchaseOrderDetailID",
+				"type": "INT32"
+			},
+			{
+				"name": "DueDate",
+				"type": "DATE"
+			},
+			{
+				"name": "OrderQty",
+				"type": "INT32"
+			},
+			{
+				"name": "ProductID",
+				"type": "INT32"
+			},
+			{
+				"name": "UnitPrice",
+				"type": "INT32"
+			},
+			{
+				"name": "LineTotal",
+				"type": "INT32"
+			},
+			{
+				"name": "ReceivedQty",
+				"type": "INT32"
+			},
+			{
+				"name": "RejectedQty",
+				"type": "INT32"
+			},
+			{
+				"name": "StockedQty",
+				"type": "INT32"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

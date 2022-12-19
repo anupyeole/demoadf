@@ -1,0 +1,9 @@
+{
+	"name": "DFanup",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "4cf27f5f-2fa6-40ff-9f81-f789ea421608",
+		"tenantId": "ab52d4e5-9cc7-437a-bdda-f4239e145187"
+	}
+}
