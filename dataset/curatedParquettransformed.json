@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "CURATED",
+				"folderPath": "CLEANSED",
 				"fileSystem": "container1"
 			},
 			"compressionCodec": "snappy"
