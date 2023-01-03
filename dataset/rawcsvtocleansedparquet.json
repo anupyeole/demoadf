@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "purchaseheader.csv",
+				"fileName": "purchaseorder.csv",
 				"folderPath": "RAW",
 				"fileSystem": "container1"
 			},
