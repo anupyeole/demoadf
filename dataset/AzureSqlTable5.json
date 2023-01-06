@@ -1,5 +1,5 @@
 {
-	"name": "AzureSqlTable4",
+	"name": "AzureSqlTable5",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureSqlDatabase1",
@@ -10,7 +10,7 @@
 		"schema": [],
 		"typeProperties": {
 			"schema": "Production",
-			"table": "DocIncrementalNew"
+			"table": "DocIncreNewUpdate"
 		}
 	}
 }
