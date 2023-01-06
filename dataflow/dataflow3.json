@@ -49,13 +49,16 @@
 					"name": "lookup1"
 				},
 				{
+					"name": "filter1"
+				},
+				{
+					"name": "select2"
+				},
+				{
 					"name": "derivedColumn3"
 				},
 				{
 					"name": "alterRow1"
-				},
-				{
-					"name": "derivedColumn4"
 				}
 			],
 			"scriptLines": [
@@ -128,30 +131,8 @@
 				"source1, select1 lookup(Owner == sOwner,",
 				"     multiple: true,",
 				"     broadcast: 'auto')~> lookup1",
-				"lookup1 derive(isactivecolumn = 0) ~> derivedColumn3",
-				"derivedColumn3 alterRow(updateIf(1==1)) ~> alterRow1",
-				"alterRow1 derive(seq_id = isUpdate(1)) ~> derivedColumn4",
-				"surrogateKey1 sink(allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     deletable:false,",
-				"     insertable:true,",
-				"     updateable:false,",
-				"     upsertable:false,",
-				"     format: 'table',",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true,",
-				"     errorHandlingOption: 'stopOnFirstError') ~> sink1",
-				"derivedColumn4 sink(allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     deletable:false,",
-				"     insertable:true,",
-				"     updateable:false,",
-				"     upsertable:false,",
-				"     format: 'table',",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true,",
-				"     errorHandlingOption: 'stopOnFirstError',",
-				"     mapColumn(",
+				"lookup1 filter(!isNull(sOwner)) ~> filter1",
+				"filter1 select(mapColumn(",
 				"          DocumentNode,",
 				"          DocumentLevel,",
 				"          Title,",
@@ -168,7 +149,32 @@
 				"          ModifiedDate,",
 				"          isactivecolumn,",
 				"          seq_id",
-				"     )) ~> sink2"
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select2",
+				"select2 derive(isactivecolumn = 0) ~> derivedColumn3",
+				"derivedColumn3 alterRow(updateIf(1==1)) ~> alterRow1",
+				"surrogateKey1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sink1",
+				"alterRow1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:false,",
+				"     updateable:true,",
+				"     upsertable:false,",
+				"     keys:['seq_id'],",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sink2"
 			]
 		}
 	}
