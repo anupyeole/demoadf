@@ -29,7 +29,7 @@
 				},
 				{
 					"dataset": {
-						"referenceName": "AzureSqlTable8",
+						"referenceName": "AzureSqlTable7",
 						"type": "DatasetReference"
 					},
 					"name": "sink2"
@@ -141,7 +141,6 @@
 				"     updateable:false,",
 				"     upsertable:false,",
 				"     format: 'table',",
-				"     preSQLs:['Truncate table dbo.employeeNew'],",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
 				"     errorHandlingOption: 'stopOnFirstError') ~> sink1",
@@ -155,7 +154,20 @@
 				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     errorHandlingOption: 'stopOnFirstError') ~> sink2"
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          employee_id,",
+				"          first_name,",
+				"          last_name,",
+				"          email,",
+				"          hire_date,",
+				"          department,",
+				"          gender,",
+				"          salary,",
+				"          region_id,",
+				"          isactivecolumn,",
+				"          seq_id",
+				"     )) ~> sink2"
 			]
 		}
 	}
