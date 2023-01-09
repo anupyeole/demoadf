@@ -50,7 +50,7 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> source1",
-				"source1 derive(isactive = 0) ~> derivedColumn1",
+				"source1 derive(isactivecolumn = 0) ~> derivedColumn1",
 				"derivedColumn1 keyGenerate(output(seq_id as long),",
 				"     startAt: 1L,",
 				"     stepValue: 1L) ~> surrogateKey1",
