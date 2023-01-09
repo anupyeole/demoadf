@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "AzureSqlTable3",
+						"referenceName": "AzureSqlTable6",
 						"type": "DatasetReference"
 					},
 					"name": "source1"
@@ -15,7 +15,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "AzureSqlTable4",
+						"referenceName": "AzureSqlTable7",
 						"type": "DatasetReference"
 					},
 					"name": "sink1"
@@ -31,20 +31,15 @@
 			],
 			"scriptLines": [
 				"source(output(",
-				"          DocumentNode as binary,",
-				"          DocumentLevel as integer,",
-				"          Title as string,",
-				"          Owner as integer,",
-				"          FolderFlag as boolean,",
-				"          FileName as string,",
-				"          FileExtension as string,",
-				"          Revision as string,",
-				"          ChangeNumber as integer,",
-				"          Status as integer,",
-				"          DocumentSummary as string,",
-				"          Document as binary,",
-				"          rowguid as string,",
-				"          ModifiedDate as timestamp",
+				"          employee_id as integer,",
+				"          first_name as string,",
+				"          last_name as string,",
+				"          email as string,",
+				"          hire_date as date,",
+				"          department as string,",
+				"          gender as string,",
+				"          salary as integer,",
+				"          region_id as integer",
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
