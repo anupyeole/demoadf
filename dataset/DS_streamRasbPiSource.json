@@ -1,0 +1,64 @@
+{
+	"name": "DS_streamRasbPiSource",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_Cont2StreamADf",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "0_823aef7406dd4a1c9cd79df58dbd3e50_1.json",
+				"fileSystem": "container2stream"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"messageId": {
+					"type": "integer"
+				},
+				"deviceId": {
+					"type": "string"
+				},
+				"temperature": {
+					"type": "number"
+				},
+				"humidity": {
+					"type": "number"
+				},
+				"EventProcessedUtcTime": {
+					"type": "string"
+				},
+				"PartitionId": {
+					"type": "integer"
+				},
+				"EventEnqueuedUtcTime": {
+					"type": "string"
+				},
+				"IoTHub": {
+					"type": "object",
+					"properties": {
+						"MessageId": {
+							"type": "null"
+						},
+						"CorrelationId": {
+							"type": "null"
+						},
+						"ConnectionDeviceId": {
+							"type": "string"
+						},
+						"ConnectionDeviceGenerationId": {
+							"type": "string"
+						},
+						"EnqueuedTime": {
+							"type": "string"
+						}
+					}
+				}
+			}
+		}
+	}
+}
