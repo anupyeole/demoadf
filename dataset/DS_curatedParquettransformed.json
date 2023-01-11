@@ -1,5 +1,5 @@
 {
-	"name": "curatedParquettransformed",
+	"name": "DS_curatedParquettransformed",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureDataLakeStorage1",

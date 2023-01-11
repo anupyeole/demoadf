@@ -1,5 +1,5 @@
 {
-	"name": "2filescopiedintosqltable",
+	"name": "PL_2filescopiedintosqltable",
 	"properties": {
 		"activities": [
 			{
@@ -45,13 +45,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "rawcsvtocleansedparquet",
+						"referenceName": "DS_rawcsvtocleansedparquet",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "AzureSqlTable1",
+						"referenceName": "DS_sqldb",
 						"type": "DatasetReference"
 					}
 				]

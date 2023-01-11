@@ -1,19 +1,19 @@
 {
-	"name": "dataflow3_employees",
+	"name": "DF_employees_SCDType2",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "AzureSqlTable6",
+						"referenceName": "DS_employees",
 						"type": "DatasetReference"
 					},
 					"name": "source1"
 				},
 				{
 					"dataset": {
-						"referenceName": "AzureSqlTable7",
+						"referenceName": "DS_empNew",
 						"type": "DatasetReference"
 					},
 					"name": "source2"
@@ -22,14 +22,14 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "AzureSqlTable7",
+						"referenceName": "DS_empNew",
 						"type": "DatasetReference"
 					},
 					"name": "sink1"
 				},
 				{
 					"dataset": {
-						"referenceName": "AzureSqlTable7",
+						"referenceName": "DS_empNew",
 						"type": "DatasetReference"
 					},
 					"name": "sink2"

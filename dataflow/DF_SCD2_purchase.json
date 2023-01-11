@@ -1,19 +1,19 @@
 {
-	"name": "dataflow2",
+	"name": "DF_SCD2_purchase",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "Parquet1df2sourcecurated",
+						"referenceName": "DS_Parquet1df2sourcecurated",
 						"type": "DatasetReference"
 					},
 					"name": "source1"
 				},
 				{
 					"dataset": {
-						"referenceName": "Parquet1",
+						"referenceName": "DS_Parquet1",
 						"type": "DatasetReference"
 					},
 					"name": "source2"
@@ -22,14 +22,14 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "Parquet1",
+						"referenceName": "DS_Parquet1",
 						"type": "DatasetReference"
 					},
 					"name": "sink1"
 				},
 				{
 					"dataset": {
-						"referenceName": "Parquet2",
+						"referenceName": "DS_Parquet2",
 						"type": "DatasetReference"
 					},
 					"name": "sink2"

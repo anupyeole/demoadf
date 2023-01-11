@@ -1,5 +1,5 @@
 {
-	"name": "AzureSqlTable5",
+	"name": "DS_DocIncreUpdate",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureSqlDatabase1",

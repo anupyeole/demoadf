@@ -1,19 +1,19 @@
 {
-	"name": "dataflow1",
+	"name": "DF_transformation_purchase",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "rawParquetsink1",
+						"referenceName": "DS_rawParquetsink1",
 						"type": "DatasetReference"
 					},
 					"name": "source1"
 				},
 				{
 					"dataset": {
-						"referenceName": "rawParquetsink2",
+						"referenceName": "DS_rawParquetsink2",
 						"type": "DatasetReference"
 					},
 					"name": "source2"
@@ -22,7 +22,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "curatedParquettransformed",
+						"referenceName": "DS_curatedParquettransformed",
 						"type": "DatasetReference"
 					},
 					"name": "sink1"

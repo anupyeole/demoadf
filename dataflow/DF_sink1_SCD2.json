@@ -1,12 +1,12 @@
 {
-	"name": "dataflow4",
+	"name": "DF_sink1_SCD2",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "AzureSqlTable6",
+						"referenceName": "DS_employees",
 						"type": "DatasetReference"
 					},
 					"name": "source1"
@@ -15,7 +15,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "AzureSqlTable7",
+						"referenceName": "DS_empNew",
 						"type": "DatasetReference"
 					},
 					"name": "sink1"

@@ -1,5 +1,5 @@
 {
-	"name": "rawParquetsink2",
+	"name": "DS_rawParquetsink2",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureDataLakeStorage1",

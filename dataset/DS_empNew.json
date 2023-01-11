@@ -1,5 +1,5 @@
 {
-	"name": "AzureSqlTable7",
+	"name": "DS_empNew",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LS_Staging",

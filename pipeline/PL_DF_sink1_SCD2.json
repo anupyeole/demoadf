@@ -1,5 +1,5 @@
 {
-	"name": "pipeline8df3",
+	"name": "PL_DF_sink1_SCD2",
 	"properties": {
 		"activities": [
 			{
@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "dataflow4",
+						"referenceName": "DF_sink1_SCD2",
 						"type": "DataFlowReference"
 					},
 					"compute": {

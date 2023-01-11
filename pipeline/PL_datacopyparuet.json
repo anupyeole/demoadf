@@ -1,5 +1,5 @@
 {
-	"name": "pipeline1",
+	"name": "PL_datacopyparuet",
 	"properties": {
 		"activities": [
 			{
@@ -47,13 +47,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "rawcsvtocleansedparquet",
+						"referenceName": "DS_rawcsvtocleansedparquet",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "rawParquetsink1",
+						"referenceName": "DS_rawParquetsink1",
 						"type": "DatasetReference"
 					}
 				]

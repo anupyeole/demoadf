@@ -1,5 +1,5 @@
 {
-	"name": "pipeline6",
+	"name": "PL_DF_transformation_purchase",
 	"properties": {
 		"activities": [
 			{
@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "dataflow1",
+						"referenceName": "DF_transformation_purchase",
 						"type": "DataFlowReference"
 					},
 					"compute": {

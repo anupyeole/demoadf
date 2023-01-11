@@ -1,5 +1,5 @@
 {
-	"name": "pipeline4",
+	"name": "PL_DF_SCD2_Purchase",
 	"properties": {
 		"activities": [
 			{
@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "dataflow2",
+						"referenceName": "DF_SCD2_purchase",
 						"type": "DataFlowReference"
 					},
 					"compute": {
