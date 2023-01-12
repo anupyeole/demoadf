@@ -2,11 +2,15 @@
 	"name": "DS_sqldb",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "LS_sqltab",
+			"referenceName": "LS_Staging",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
 		"type": "AzureSqlTable",
-		"schema": []
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "Jsonstream"
+		}
 	}
 }
