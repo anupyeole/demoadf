@@ -1,0 +1,73 @@
+{
+	"name": "DS_Restapisource",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "tested.csv",
+				"folderPath": "RAW/RestApi/Source",
+				"fileSystem": "container1"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "PassengerId",
+				"type": "String"
+			},
+			{
+				"name": "Survived",
+				"type": "String"
+			},
+			{
+				"name": "Pclass",
+				"type": "String"
+			},
+			{
+				"name": "Name",
+				"type": "String"
+			},
+			{
+				"name": "Sex",
+				"type": "String"
+			},
+			{
+				"name": "Age",
+				"type": "String"
+			},
+			{
+				"name": "SibSp",
+				"type": "String"
+			},
+			{
+				"name": "Parch",
+				"type": "String"
+			},
+			{
+				"name": "Ticket",
+				"type": "String"
+			},
+			{
+				"name": "Fare",
+				"type": "String"
+			},
+			{
+				"name": "Cabin",
+				"type": "String"
+			},
+			{
+				"name": "Embarked",
+				"type": "String"
+			}
+		]
+	}
+}
