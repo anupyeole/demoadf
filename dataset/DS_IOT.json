@@ -1,0 +1,19 @@
+{
+	"name": "DS_IOT",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_Cont2StreamADf",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "container2stream"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
