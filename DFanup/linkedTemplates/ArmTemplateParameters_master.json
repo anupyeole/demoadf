@@ -23,10 +23,16 @@
 		"LS_sqltab_connectionString": {
 			"value": ""
 		},
+		"AzureDataLakeStorage2_accountKey": {
+			"value": ""
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"value": "https://usecase1adls99.dfs.core.windows.net/"
 		},
 		"LS_Cont2StreamADf_properties_typeProperties_url": {
+			"value": "https://usecase1adls99.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage2_properties_typeProperties_url": {
 			"value": "https://usecase1adls99.dfs.core.windows.net/"
 		},
 		"containerUri": {
