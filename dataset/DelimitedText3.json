@@ -20,7 +20,7 @@
 		},
 		"schema": [
 			{
-				"name": "URL",
+				"name": "Date ",
 				"type": "String"
 			}
 		]
