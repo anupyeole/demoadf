@@ -1,0 +1,77 @@
+{
+	"name": "dataflow_drop_column",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable6",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable6",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          WorkOrderID as integer,",
+				"          ProductID as integer,",
+				"          OrderQty as integer,",
+				"          StockedQty as integer,",
+				"          ScrappedQty as short,",
+				"          StartDate as timestamp,",
+				"          EndDate as timestamp,",
+				"          DueDate as timestamp,",
+				"          ScrapReasonID as short,",
+				"          ModifiedDate as timestamp",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> source1",
+				"source1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          WorkOrderID as integer,",
+				"          ProductID as integer,",
+				"          OrderQty as integer,",
+				"          StockedQty as integer,",
+				"          ScrappedQty as integer,",
+				"          StartDate as timestamp,",
+				"          EndDate as timestamp,",
+				"          DueDate as timestamp,",
+				"          ScrapReasonID as integer,",
+				"          ModifiedDate as timestamp",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          WorkOrderID,",
+				"          ProductID,",
+				"          OrderQty,",
+				"          StockedQty,",
+				"          StartDate,",
+				"          EndDate,",
+				"          DueDate,",
+				"          ModifiedDate",
+				"     )) ~> sink1"
+			]
+		}
+	}
+}
