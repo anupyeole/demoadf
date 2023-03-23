@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "AzureSqlTable6",
+						"referenceName": "DelimitedText2",
 						"type": "DatasetReference"
 					},
 					"name": "source1"
@@ -15,61 +15,38 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "AzureSqlTable6",
+						"referenceName": "DelimitedText3",
 						"type": "DatasetReference"
 					},
 					"name": "sink1"
 				}
 			],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
-				"          WorkOrderID as integer,",
-				"          ProductID as integer,",
-				"          OrderQty as integer,",
-				"          StockedQty as integer,",
-				"          ScrappedQty as short,",
-				"          StartDate as timestamp,",
-				"          EndDate as timestamp,",
-				"          DueDate as timestamp,",
-				"          ScrapReasonID as short,",
-				"          ModifiedDate as timestamp",
+				"          Name as string",
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     isolationLevel: 'READ_UNCOMMITTED',",
-				"     format: 'table') ~> source1",
-				"source1 sink(allowSchemaDrift: true,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 derive(Name1 = split(Name,',')[1],",
+				"          Name2 = split(Name, ',')[2],",
+				"          Name3 = split(Name, ',')[3]) ~> derivedColumn1",
+				"derivedColumn1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     input(",
-				"          WorkOrderID as integer,",
-				"          ProductID as integer,",
-				"          OrderQty as integer,",
-				"          StockedQty as integer,",
-				"          ScrappedQty as integer,",
-				"          StartDate as timestamp,",
-				"          EndDate as timestamp,",
-				"          DueDate as timestamp,",
-				"          ScrapReasonID as integer,",
-				"          ModifiedDate as timestamp",
-				"     ),",
-				"     deletable:false,",
-				"     insertable:true,",
-				"     updateable:false,",
-				"     upsertable:false,",
-				"     format: 'table',",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     errorHandlingOption: 'stopOnFirstError',",
 				"     mapColumn(",
-				"          WorkOrderID,",
-				"          ProductID,",
-				"          OrderQty,",
-				"          StockedQty,",
-				"          StartDate,",
-				"          EndDate,",
-				"          DueDate,",
-				"          ModifiedDate",
+				"          Name1,",
+				"          Name2,",
+				"          Name3",
 				"     )) ~> sink1"
 			]
 		}
