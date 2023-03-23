@@ -1,5 +1,5 @@
 {
-	"name": "DF_Delete_sqlDB",
+	"name": "DF_Deleterow_sqlDB",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
@@ -23,7 +23,7 @@
 			],
 			"transformations": [
 				{
-					"name": "AlterRow1"
+					"name": "DeleteRow1"
 				}
 			],
 			"scriptLines": [
@@ -47,8 +47,8 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> DSsource",
-				"DSsource alterRow(deleteIf($VALUE == BusinessEntityID)) ~> AlterRow1",
-				"AlterRow1 sink(allowSchemaDrift: true,",
+				"DSsource alterRow(deleteIf($VALUE==BusinessEntityID)) ~> DeleteRow1",
+				"DeleteRow1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
 				"          ProductID as integer,",
