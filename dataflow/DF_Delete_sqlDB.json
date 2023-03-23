@@ -1,5 +1,5 @@
 {
-	"name": "dataflow_Delete_sqlDB",
+	"name": "DF_Delete_sqlDB",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
