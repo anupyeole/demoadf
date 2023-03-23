@@ -28,7 +28,7 @@
 			],
 			"scriptLines": [
 				"parameters{",
-				"     VALUE as integer (1622)",
+				"     VALUE as integer (1554)",
 				"}",
 				"source(output(",
 				"          ProductID as integer,",
@@ -47,7 +47,7 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> DSsource",
-				"DSsource alterRow(deleteIf($VALUE==BusinessEntityID)) ~> DeleteRow1",
+				"DSsource alterRow(deleteIf($VALUE == BusinessEntityID)) ~> DeleteRow1",
 				"DeleteRow1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
