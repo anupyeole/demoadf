@@ -1,0 +1,78 @@
+{
+	"name": "dataflow_Delete_sqlDB",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable5",
+						"type": "DatasetReference"
+					},
+					"name": "DSsource"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable5",
+						"type": "DatasetReference"
+					},
+					"name": "DSsink"
+				}
+			],
+			"transformations": [
+				{
+					"name": "AlterRow1"
+				}
+			],
+			"scriptLines": [
+				"parameters{",
+				"     VALUE as integer (1622)",
+				"}",
+				"source(output(",
+				"          ProductID as integer,",
+				"          BusinessEntityID as integer,",
+				"          AverageLeadTime as integer,",
+				"          StandardPrice as decimal(19,4),",
+				"          LastReceiptCost as decimal(19,4),",
+				"          LastReceiptDate as timestamp,",
+				"          MinOrderQty as integer,",
+				"          MaxOrderQty as integer,",
+				"          OnOrderQty as integer,",
+				"          UnitMeasureCode as string,",
+				"          ModifiedDate as timestamp",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> DSsource",
+				"DSsource alterRow(deleteIf($VALUE == BusinessEntityID)) ~> AlterRow1",
+				"AlterRow1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          ProductID as integer,",
+				"          BusinessEntityID as integer,",
+				"          AverageLeadTime as integer,",
+				"          StandardPrice as decimal(19,4),",
+				"          LastReceiptCost as decimal(19,4),",
+				"          LastReceiptDate as timestamp,",
+				"          MinOrderQty as integer,",
+				"          MaxOrderQty as integer,",
+				"          OnOrderQty as integer,",
+				"          UnitMeasureCode as string,",
+				"          ModifiedDate as timestamp",
+				"     ),",
+				"     deletable:true,",
+				"     insertable:false,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     keys:['BusinessEntityID'],",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> DSsink"
+			]
+		}
+	}
+}
