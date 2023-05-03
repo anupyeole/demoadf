@@ -1,0 +1,23 @@
+{
+	"name": "empMob",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ADLSGen2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "emp_mob.csv",
+				"fileSystem": "dsharesqldbtosynapseadlsegen2"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}

@@ -1,0 +1,25 @@
+{
+	"name": "EMP_Mob",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SQLdb_dtShare",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "ID",
+				"type": "nvarchar"
+			},
+			{
+				"name": "MobNo",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "Employee_Mob"
+		}
+	}
+}
