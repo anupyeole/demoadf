@@ -10,8 +10,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "FtpServerLocation",
-				"fileName": "archive_csv.zip",
-				"folderPath": "input"
+				"fileName": "REP1856.csv",
+				"folderPath": "reda"
 			}
 		}
 	}
