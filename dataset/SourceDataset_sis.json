@@ -1,20 +1,19 @@
 {
-	"name": "DS_IOT",
+	"name": "SourceDataset_sis",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "LS_Cont2StreamADf",
+			"referenceName": "AzureDataLakeStorage4",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
-		"type": "Parquet",
+		"type": "Binary",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileSystem": "container2stream"
-			},
-			"compressionCodec": "snappy"
-		},
-		"schema": []
+				"fileName": "pract.csv",
+				"fileSystem": "source"
+			}
+		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
 }

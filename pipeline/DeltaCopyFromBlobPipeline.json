@@ -1,9 +1,9 @@
 {
-	"name": "pipeline1",
+	"name": "DeltaCopyFromBlobPipeline",
 	"properties": {
 		"activities": [
 			{
-				"name": "Incremental data last 1 day",
+				"name": "Copy_a50",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -13,66 +13,73 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": [],
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "source//"
+					},
+					{
+						"name": "Destination",
+						"value": "destination//"
+					}
+				],
 				"typeProperties": {
 					"source": {
-						"type": "DelimitedTextSource",
+						"type": "BinarySource",
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
 							"recursive": true,
 							"modifiedDatetimeStart": {
-								"value": "@adddays(utcnow(),-1)",
+								"value": "@pipeline().parameters.windowStart",
 								"type": "Expression"
 							},
 							"modifiedDatetimeEnd": {
-								"value": "@utcnow()",
+								"value": "@pipeline().parameters.windowEnd",
 								"type": "Expression"
 							},
-							"wildcardFolderPath": "RAW",
-							"wildcardFileName": "*.csv",
-							"enablePartitionDiscovery": false
+							"wildcardFileName": "*"
 						},
 						"formatSettings": {
-							"type": "DelimitedTextReadSettings"
+							"type": "BinaryReadSettings"
 						}
 					},
 					"sink": {
-						"type": "DelimitedTextSink",
+						"type": "BinarySink",
 						"storeSettings": {
 							"type": "AzureBlobFSWriteSettings"
-						},
-						"formatSettings": {
-							"type": "DelimitedTextWriteSettings",
-							"quoteAllText": true,
-							"fileExtension": ".txt"
 						}
 					},
 					"enableStaging": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
-						}
-					}
+					"enableSkipIncompatibleRow": false,
+					"skipErrorFile": {
+						"fileMissing": true
+					},
+					"validateDataConsistency": false
 				},
 				"inputs": [
 					{
-						"referenceName": "DS_incre",
+						"referenceName": "SourceDataset_a50",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "DS_incre_parquet",
+						"referenceName": "DestinationDataset_a50",
 						"type": "DatasetReference"
 					}
 				]
 			}
 		],
+		"parameters": {
+			"windowStart": {
+				"type": "String"
+			},
+			"windowEnd": {
+				"type": "String"
+			}
+		},
 		"annotations": [],
-		"lastPublishTime": "2023-02-23T10:33:46Z"
+		"lastPublishTime": "2023-06-01T07:25:31Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }

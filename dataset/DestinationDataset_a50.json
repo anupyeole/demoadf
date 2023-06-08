@@ -1,16 +1,17 @@
 {
-	"name": "DS_docIncreNew",
+	"name": "DestinationDataset_a50",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "AzureSqlDatabase1",
+			"referenceName": "AzureDataLakeStorage3",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
-		"type": "AzureSqlTable",
-		"schema": [],
+		"type": "Binary",
 		"typeProperties": {
-			"schema": "Production",
-			"table": "DocIncrementalNew"
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "destination"
+			}
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"

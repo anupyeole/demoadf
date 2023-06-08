@@ -1,5 +1,5 @@
 {
-	"name": "DS_docIncreNew",
+	"name": "AzureSqlTable2",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureSqlDatabase1",
@@ -9,8 +9,8 @@
 		"type": "AzureSqlTable",
 		"schema": [],
 		"typeProperties": {
-			"schema": "Production",
-			"table": "DocIncrementalNew"
+			"schema": "dbo",
+			"table": "practical"
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"

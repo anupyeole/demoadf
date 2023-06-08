@@ -1,9 +1,9 @@
 {
-	"name": "PL_datacopyparuet",
+	"name": "CopyPipeline_sis",
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy data1",
+				"name": "Copy_sis",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -13,54 +13,52 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": [],
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "source//pract.csv"
+					},
+					{
+						"name": "Destination",
+						"value": "destination//"
+					}
+				],
 				"typeProperties": {
 					"source": {
-						"type": "DelimitedTextSource",
+						"type": "BinarySource",
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
-							"recursive": true,
-							"enablePartitionDiscovery": false
+							"recursive": true
 						},
 						"formatSettings": {
-							"type": "DelimitedTextReadSettings"
+							"type": "BinaryReadSettings"
 						}
 					},
 					"sink": {
-						"type": "ParquetSink",
+						"type": "BinarySink",
 						"storeSettings": {
 							"type": "AzureBlobFSWriteSettings"
-						},
-						"formatSettings": {
-							"type": "ParquetWriteSettings"
 						}
 					},
 					"enableStaging": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
-						}
-					}
+					"validateDataConsistency": false
 				},
 				"inputs": [
 					{
-						"referenceName": "DS_rawcsvtocleansedparquet",
+						"referenceName": "SourceDataset_sis",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "DS_rawParquetsink1",
+						"referenceName": "DestinationDataset_sis",
 						"type": "DatasetReference"
 					}
 				]
 			}
 		],
 		"annotations": [],
-		"lastPublishTime": "2023-01-19T06:26:18Z"
+		"lastPublishTime": "2023-06-01T07:52:20Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }

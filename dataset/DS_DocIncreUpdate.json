@@ -12,5 +12,6 @@
 			"schema": "Production",
 			"table": "DocIncreNewUpdate"
 		}
-	}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
 }

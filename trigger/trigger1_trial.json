@@ -1,0 +1,25 @@
+{
+	"name": "trigger1_trial",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pipeline2",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/trial/blobs/current",
+			"blobPathEndsWith": ".csv",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/4bc5b9f0-8d3a-44ad-90b9-ae12564461a5/resourceGroups/RG-Anup/providers/Microsoft.Storage/storageAccounts/usecase1adls99",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}
