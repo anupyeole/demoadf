@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "DFanup"
 		},
+		"ADLSGen2_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ADLSGen2'"
+		},
 		"AzureBlobStorage1_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
@@ -15,13 +19,49 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
 		},
+		"AzureDataLakeStorage2_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage2'"
+		},
+		"AzureDataLakeStorage3_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage3'"
+		},
+		"AzureDataLakeStorage4_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage4'"
+		},
+		"AzureDataLakeStorage5_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage5'"
+		},
 		"AzureSqlDatabase1_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
 		},
+		"FtpServer1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'FtpServer1'"
+		},
+		"FtpServer2_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'FtpServer2'"
+		},
+		"LS_AzureDataLakeLOOKUP_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_AzureDataLakeLOOKUP'"
+		},
+		"LS_AzureSqlDatabase2_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_AzureSqlDatabase2'"
+		},
 		"LS_Cont2StreamADf_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'LS_Cont2StreamADf'"
+		},
+		"LS_SQLdbLookup_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_SQLdbLookup'"
 		},
 		"LS_Staging_connectionString": {
 			"type": "secureString",
@@ -31,19 +71,59 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'LS_sqltab'"
 		},
-		"AzureDataLakeStorage2_accountKey": {
+		"SQLDW_connectionString": {
 			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage2'"
+			"metadata": "Secure string for 'connectionString' of 'SQLDW'"
+		},
+		"SQLdb_dtShare_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SQLdb_dtShare'"
+		},
+		"ADLSGen2_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://usecase1adls99.dfs.core.windows.net/"
 		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://usecase1adls99.dfs.core.windows.net/"
 		},
-		"LS_Cont2StreamADf_properties_typeProperties_url": {
+		"AzureDataLakeStorage2_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://usecase1adls99.dfs.core.windows.net/"
 		},
-		"AzureDataLakeStorage2_properties_typeProperties_url": {
+		"AzureDataLakeStorage3_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://usecase1adls99.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage4_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://usecase1adls99.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage5_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://usecase1adls99.dfs.core.windows.net/"
+		},
+		"FtpServer1_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "ftp://ftp.dlptest.com/"
+		},
+		"FtpServer1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "dlpuser"
+		},
+		"FtpServer2_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "ftp://ftp.dlptest.com/"
+		},
+		"FtpServer2_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "dlpuser"
+		},
+		"LS_AzureDataLakeLOOKUP_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://usecase1adls99.dfs.core.windows.net/"
+		},
+		"LS_Cont2StreamADf_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://usecase1adls99.dfs.core.windows.net/"
 		}
@@ -52,6 +132,23 @@
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/ADLSGen2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('ADLSGen2_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('ADLSGen2_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/AzureBlobStorage1')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
@@ -83,6 +180,74 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('AzureDataLakeStorage2_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDataLakeStorage2_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage3')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('AzureDataLakeStorage3_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDataLakeStorage3_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage4')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('AzureDataLakeStorage4_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDataLakeStorage4_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage5')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('AzureDataLakeStorage5_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDataLakeStorage5_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabase1')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -91,6 +256,80 @@
 				"type": "AzureSqlDatabase",
 				"typeProperties": {
 					"connectionString": "[parameters('AzureSqlDatabase1_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/FtpServer1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "FtpServer",
+				"typeProperties": {
+					"host": "[parameters('FtpServer1_properties_typeProperties_host')]",
+					"port": 21,
+					"enableSsl": false,
+					"enableServerCertificateValidation": false,
+					"authenticationType": "Basic",
+					"userName": "[parameters('FtpServer1_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('FtpServer1_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/FtpServer2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "FtpServer",
+				"typeProperties": {
+					"host": "[parameters('FtpServer2_properties_typeProperties_host')]",
+					"port": 21,
+					"enableSsl": false,
+					"enableServerCertificateValidation": false,
+					"authenticationType": "Basic",
+					"userName": "[parameters('FtpServer2_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('FtpServer2_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_AzureDataLakeLOOKUP')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('LS_AzureDataLakeLOOKUP_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('LS_AzureDataLakeLOOKUP_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_AzureSqlDatabase2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('LS_AzureSqlDatabase2_connectionString')]"
 				}
 			},
 			"dependsOn": []
@@ -108,6 +347,19 @@
 						"type": "SecureString",
 						"value": "[parameters('LS_Cont2StreamADf_accountKey')]"
 					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_SQLdbLookup')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('LS_SQLdbLookup_connectionString')]"
 				}
 			},
 			"dependsOn": []
@@ -139,21 +391,27 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/trigger1')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
+			"name": "[concat(parameters('factoryName'), '/SQLDW')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"runtimeState": "Stopped",
-				"pipelines": [],
-				"type": "ScheduleTrigger",
+				"type": "AzureSqlDW",
 				"typeProperties": {
-					"recurrence": {
-						"frequency": "Minute",
-						"interval": 15,
-						"startTime": "2023-01-18T05:25:00Z",
-						"timeZone": "UTC"
-					}
+					"connectionString": "[parameters('SQLDW_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SQLdb_dtShare')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('SQLdb_dtShare_connectionString')]"
 				}
 			},
 			"dependsOn": []
@@ -169,24 +427,7 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage2')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobFS",
-				"typeProperties": {
-					"url": "[parameters('AzureDataLakeStorage2_properties_typeProperties_url')]",
-					"accountKey": {
-						"type": "SecureString",
-						"value": "[parameters('AzureDataLakeStorage2_accountKey')]"
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_DocIncreUpdate')]",
+			"name": "[concat(parameters('factoryName'), '/AzureSqlTable1')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -198,699 +439,12 @@
 				"type": "AzureSqlTable",
 				"schema": [],
 				"typeProperties": {
-					"schema": "Production",
-					"table": "DocIncreNewUpdate"
+					"schema": "dbo",
+					"table": "scd1_practfile"
 				}
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_Document')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureSqlDatabase1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [
-					{
-						"name": "DocumentNode",
-						"type": "hierarchyid"
-					},
-					{
-						"name": "DocumentLevel",
-						"type": "smallint",
-						"precision": 5
-					},
-					{
-						"name": "Title",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Owner",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "FolderFlag",
-						"type": "bit"
-					},
-					{
-						"name": "FileName",
-						"type": "nvarchar"
-					},
-					{
-						"name": "FileExtension",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Revision",
-						"type": "nchar"
-					},
-					{
-						"name": "ChangeNumber",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "Status",
-						"type": "tinyint",
-						"precision": 3
-					},
-					{
-						"name": "DocumentSummary",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Document",
-						"type": "varbinary"
-					},
-					{
-						"name": "rowguid",
-						"type": "uniqueidentifier"
-					},
-					{
-						"name": "ModifiedDate",
-						"type": "datetime",
-						"precision": 23,
-						"scale": 3
-					}
-				],
-				"typeProperties": {
-					"schema": "Production",
-					"table": "Document"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_IOT')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_Cont2StreamADf",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileSystem": "container2stream"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_Cont2StreamADf')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_Jsonstream')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_Cont2StreamADf",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Json",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "0_823aef7406dd4a1c9cd79df58dbd3e50_1.json",
-						"fileSystem": "container2stream"
-					}
-				},
-				"schema": {
-					"type": "object",
-					"properties": {
-						"messageId": {
-							"type": "integer"
-						},
-						"deviceId": {
-							"type": "string"
-						},
-						"temperature": {
-							"type": "number"
-						},
-						"humidity": {
-							"type": "number"
-						},
-						"EventProcessedUtcTime": {
-							"type": "string"
-						},
-						"PartitionId": {
-							"type": "integer"
-						},
-						"EventEnqueuedUtcTime": {
-							"type": "string"
-						},
-						"IoTHub": {
-							"type": "object",
-							"properties": {
-								"MessageId": {
-									"type": "null"
-								},
-								"CorrelationId": {
-									"type": "null"
-								},
-								"ConnectionDeviceId": {
-									"type": "string"
-								},
-								"ConnectionDeviceGenerationId": {
-									"type": "string"
-								},
-								"EnqueuedTime": {
-									"type": "string"
-								}
-							}
-						}
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_Cont2StreamADf')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_Parquet1')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "part-00000-545aa35f-608b-4323-9abf-17cde60b1c09-c000.snappy.parquet",
-						"folderPath": "CURATED/scd2isactive",
-						"fileSystem": "container1"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_Parquet1df2sourcecurated')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "part-00000-c171ff0e-ff68-4acd-b09b-9c28018a55bd-c000.snappy.parquet",
-						"folderPath": "CURATED",
-						"fileSystem": "container1"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": [
-					{
-						"name": "PurchaseOrderID",
-						"type": "INT32"
-					},
-					{
-						"name": "RevisionNumber",
-						"type": "INT32"
-					},
-					{
-						"name": "Status",
-						"type": "INT32"
-					},
-					{
-						"name": "EmployeeID",
-						"type": "INT32"
-					},
-					{
-						"name": "VendorID",
-						"type": "INT32"
-					},
-					{
-						"name": "ShipMethodID",
-						"type": "INT32"
-					},
-					{
-						"name": "OrderDate",
-						"type": "DATE"
-					},
-					{
-						"name": "ShipDate",
-						"type": "DATE"
-					},
-					{
-						"name": "SubTotal",
-						"type": "INT32"
-					},
-					{
-						"name": "TaxAmt",
-						"type": "UTF8"
-					},
-					{
-						"name": "Freight",
-						"type": "INT32"
-					},
-					{
-						"name": "TotalDue",
-						"type": "INT32"
-					},
-					{
-						"name": "ModifiedDate",
-						"type": "UTF8"
-					},
-					{
-						"name": "seq_id",
-						"type": "INT64"
-					},
-					{
-						"name": "PurchaseOrderDetailID",
-						"type": "INT32"
-					},
-					{
-						"name": "DueDate",
-						"type": "DATE"
-					},
-					{
-						"name": "OrderQty",
-						"type": "INT32"
-					},
-					{
-						"name": "ProductID",
-						"type": "INT32"
-					},
-					{
-						"name": "UnitPrice",
-						"type": "INT32"
-					},
-					{
-						"name": "LineTotal",
-						"type": "INT32"
-					},
-					{
-						"name": "ReceivedQty",
-						"type": "INT32"
-					},
-					{
-						"name": "RejectedQty",
-						"type": "INT32"
-					},
-					{
-						"name": "StockedQty",
-						"type": "INT32"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_Parquet2')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"folderPath": "CURATED/scd2data",
-						"fileSystem": "container1"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_Parquetsink1')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "part-00000-f051e559-c8b9-4e2a-a97e-c93afb337612-c000.snappy.parquet",
-						"folderPath": "CURATED",
-						"fileSystem": "container1"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": [
-					{
-						"name": "PurchaseOrderID",
-						"type": "INT32"
-					},
-					{
-						"name": "RevisionNumber",
-						"type": "INT32"
-					},
-					{
-						"name": "Status",
-						"type": "INT32"
-					},
-					{
-						"name": "EmployeeID",
-						"type": "INT32"
-					},
-					{
-						"name": "VendorID",
-						"type": "INT32"
-					},
-					{
-						"name": "ShipMethodID",
-						"type": "INT32"
-					},
-					{
-						"name": "OrderDate",
-						"type": "DATE"
-					},
-					{
-						"name": "ShipDate",
-						"type": "DATE"
-					},
-					{
-						"name": "SubTotal",
-						"type": "INT32"
-					},
-					{
-						"name": "TaxAmt",
-						"type": "UTF8"
-					},
-					{
-						"name": "Freight",
-						"type": "INT32"
-					},
-					{
-						"name": "TotalDue",
-						"type": "INT32"
-					},
-					{
-						"name": "ModifiedDate",
-						"type": "UTF8"
-					},
-					{
-						"name": "seq_id",
-						"type": "INT64"
-					},
-					{
-						"name": "PurchaseOrderDetailID",
-						"type": "INT32"
-					},
-					{
-						"name": "DueDate",
-						"type": "DATE"
-					},
-					{
-						"name": "OrderQty",
-						"type": "INT32"
-					},
-					{
-						"name": "ProductID",
-						"type": "INT32"
-					},
-					{
-						"name": "UnitPrice",
-						"type": "INT32"
-					},
-					{
-						"name": "LineTotal",
-						"type": "INT32"
-					},
-					{
-						"name": "ReceivedQty",
-						"type": "INT32"
-					},
-					{
-						"name": "RejectedQty",
-						"type": "INT32"
-					},
-					{
-						"name": "StockedQty",
-						"type": "INT32"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_Restapisource')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "diabetes (2).csv",
-						"folderPath": "RAW/RestApi/Source",
-						"fileSystem": "container1"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "PassengerId",
-						"type": "String"
-					},
-					{
-						"name": "Survived",
-						"type": "String"
-					},
-					{
-						"name": "Pclass",
-						"type": "String"
-					},
-					{
-						"name": "Name",
-						"type": "String"
-					},
-					{
-						"name": "Sex",
-						"type": "String"
-					},
-					{
-						"name": "Age",
-						"type": "String"
-					},
-					{
-						"name": "SibSp",
-						"type": "String"
-					},
-					{
-						"name": "Parch",
-						"type": "String"
-					},
-					{
-						"name": "Ticket",
-						"type": "String"
-					},
-					{
-						"name": "Fare",
-						"type": "String"
-					},
-					{
-						"name": "Cabin",
-						"type": "String"
-					},
-					{
-						"name": "Embarked",
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_curatedParquet2sink')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"folderPath": "CURATED/SCD2sink",
-						"fileSystem": "container1"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": [
-					{
-						"name": "PurchaseOrderID",
-						"type": "INT32"
-					},
-					{
-						"name": "RevisionNumber",
-						"type": "INT32"
-					},
-					{
-						"name": "Status",
-						"type": "INT32"
-					},
-					{
-						"name": "EmployeeID",
-						"type": "INT32"
-					},
-					{
-						"name": "VendorID",
-						"type": "INT32"
-					},
-					{
-						"name": "ShipMethodID",
-						"type": "INT32"
-					},
-					{
-						"name": "OrderDate",
-						"type": "DATE"
-					},
-					{
-						"name": "ShipDate",
-						"type": "DATE"
-					},
-					{
-						"name": "SubTotal",
-						"type": "INT32"
-					},
-					{
-						"name": "TaxAmt",
-						"type": "UTF8"
-					},
-					{
-						"name": "Freight",
-						"type": "INT32"
-					},
-					{
-						"name": "TotalDue",
-						"type": "INT32"
-					},
-					{
-						"name": "ModifiedDate",
-						"type": "UTF8"
-					},
-					{
-						"name": "seq_id",
-						"type": "INT64"
-					},
-					{
-						"name": "PurchaseOrderDetailID",
-						"type": "INT32"
-					},
-					{
-						"name": "DueDate",
-						"type": "DATE"
-					},
-					{
-						"name": "OrderQty",
-						"type": "INT32"
-					},
-					{
-						"name": "ProductID",
-						"type": "INT32"
-					},
-					{
-						"name": "UnitPrice",
-						"type": "INT32"
-					},
-					{
-						"name": "LineTotal",
-						"type": "INT32"
-					},
-					{
-						"name": "ReceivedQty",
-						"type": "INT32"
-					},
-					{
-						"name": "RejectedQty",
-						"type": "INT32"
-					},
-					{
-						"name": "StockedQty",
-						"type": "INT32"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_curatedParquettransformed')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"folderPath": "CLEANSED",
-						"fileSystem": "container1"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
 			]
 		}
 	]

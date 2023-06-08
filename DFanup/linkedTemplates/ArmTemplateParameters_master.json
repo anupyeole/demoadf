@@ -5,16 +5,46 @@
 		"factoryName": {
 			"value": "DFanup"
 		},
+		"ADLSGen2_accountKey": {
+			"value": ""
+		},
 		"AzureBlobStorage1_connectionString": {
 			"value": ""
 		},
 		"AzureDataLakeStorage1_accountKey": {
 			"value": ""
 		},
+		"AzureDataLakeStorage2_accountKey": {
+			"value": ""
+		},
+		"AzureDataLakeStorage3_accountKey": {
+			"value": ""
+		},
+		"AzureDataLakeStorage4_accountKey": {
+			"value": ""
+		},
+		"AzureDataLakeStorage5_accountKey": {
+			"value": ""
+		},
 		"AzureSqlDatabase1_connectionString": {
 			"value": ""
 		},
+		"FtpServer1_password": {
+			"value": ""
+		},
+		"FtpServer2_password": {
+			"value": ""
+		},
+		"LS_AzureDataLakeLOOKUP_accountKey": {
+			"value": ""
+		},
+		"LS_AzureSqlDatabase2_connectionString": {
+			"value": ""
+		},
 		"LS_Cont2StreamADf_accountKey": {
+			"value": ""
+		},
+		"LS_SQLdbLookup_connectionString": {
 			"value": ""
 		},
 		"LS_Staging_connectionString": {
@@ -23,17 +53,50 @@
 		"LS_sqltab_connectionString": {
 			"value": ""
 		},
-		"AzureDataLakeStorage2_accountKey": {
+		"SQLDW_connectionString": {
 			"value": ""
 		},
+		"SQLdb_dtShare_connectionString": {
+			"value": ""
+		},
+		"ADLSGen2_properties_typeProperties_url": {
+			"value": "https://usecase1adls99.dfs.core.windows.net/"
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://usecase1adls99.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage2_properties_typeProperties_url": {
+			"value": "https://usecase1adls99.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage3_properties_typeProperties_url": {
+			"value": "https://usecase1adls99.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage4_properties_typeProperties_url": {
+			"value": "https://usecase1adls99.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage5_properties_typeProperties_url": {
+			"value": "https://usecase1adls99.dfs.core.windows.net/"
+		},
+		"FtpServer1_properties_typeProperties_host": {
+			"value": "ftp://ftp.dlptest.com/"
+		},
+		"FtpServer1_properties_typeProperties_userName": {
+			"value": "dlpuser"
+		},
+		"FtpServer2_properties_typeProperties_host": {
+			"value": "ftp://ftp.dlptest.com/"
+		},
+		"FtpServer2_properties_typeProperties_userName": {
+			"value": "dlpuser"
+		},
+		"LS_AzureDataLakeLOOKUP_properties_typeProperties_url": {
 			"value": "https://usecase1adls99.dfs.core.windows.net/"
 		},
 		"LS_Cont2StreamADf_properties_typeProperties_url": {
 			"value": "https://usecase1adls99.dfs.core.windows.net/"
 		},
-		"AzureDataLakeStorage2_properties_typeProperties_url": {
-			"value": "https://usecase1adls99.dfs.core.windows.net/"
+		"trigger1_trial_properties_typeProperties_scope": {
+			"value": "/subscriptions/4bc5b9f0-8d3a-44ad-90b9-ae12564461a5/resourceGroups/RG-Anup/providers/Microsoft.Storage/storageAccounts/usecase1adls99"
 		},
 		"containerUri": {
 			"value": ""

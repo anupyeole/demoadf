@@ -13,818 +13,602 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/DF_employees_SCDType2')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
+			"name": "[concat(parameters('factoryName'), '/DS_incre')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"type": "MappingDataFlow",
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
 				"typeProperties": {
-					"sources": [
-						{
-							"dataset": {
-								"referenceName": "DS_employees",
-								"type": "DatasetReference"
-							},
-							"name": "source1"
-						},
-						{
-							"dataset": {
-								"referenceName": "DS_empNew",
-								"type": "DatasetReference"
-							},
-							"name": "source2"
-						}
-					],
-					"sinks": [
-						{
-							"dataset": {
-								"referenceName": "DS_empNew",
-								"type": "DatasetReference"
-							},
-							"name": "sink1"
-						},
-						{
-							"dataset": {
-								"referenceName": "DS_empNew",
-								"type": "DatasetReference"
-							},
-							"name": "sink2"
-						}
-					],
-					"transformations": [
-						{
-							"name": "surrogateKey1"
-						},
-						{
-							"name": "derivedColumn2"
-						},
-						{
-							"name": "select1"
-						},
-						{
-							"name": "lookup1"
-						},
-						{
-							"name": "filter1"
-						},
-						{
-							"name": "select2"
-						},
-						{
-							"name": "derivedColumn3"
-						},
-						{
-							"name": "alterRow1"
-						}
-					],
-					"scriptLines": [
-						"source(output(",
-						"          employee_id as integer,",
-						"          first_name as string,",
-						"          last_name as string,",
-						"          email as string,",
-						"          hire_date as date,",
-						"          department as string,",
-						"          gender as string,",
-						"          salary as integer,",
-						"          region_id as integer",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     isolationLevel: 'READ_UNCOMMITTED',",
-						"     format: 'table') ~> source1",
-						"source(output(",
-						"          employee_id as integer,",
-						"          first_name as string,",
-						"          last_name as string,",
-						"          email as string,",
-						"          hire_date as date,",
-						"          department as string,",
-						"          gender as string,",
-						"          salary as integer,",
-						"          region_id as integer,",
-						"          isactivecolumn as integer,",
-						"          seq_id as long",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     isolationLevel: 'READ_UNCOMMITTED',",
-						"     format: 'table') ~> source2",
-						"derivedColumn2 keyGenerate(output(seq_id as long),",
-						"     startAt: 1L,",
-						"     stepValue: 1L) ~> surrogateKey1",
-						"source1 derive(isactivecolumn = 1) ~> derivedColumn2",
-						"source2 select(mapColumn(",
-						"          pemployee_id = employee_id,",
-						"          pfirst_name = first_name,",
-						"          plast_name = last_name,",
-						"          pemail = email,",
-						"          phire_date = hire_date,",
-						"          pdepartment = department,",
-						"          pgender = gender,",
-						"          psalary = salary,",
-						"          pregion_id = region_id,",
-						"          pisactivecolumn = isactivecolumn,",
-						"          pseq_id = seq_id",
-						"     ),",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> select1",
-						"source1, select1 lookup(employee_id == pemployee_id,",
-						"     multiple: true,",
-						"     broadcast: 'auto')~> lookup1",
-						"lookup1 filter(!isNull(pemployee_id)) ~> filter1",
-						"filter1 select(mapColumn(",
-						"          pemployee_id,",
-						"          pfirst_name,",
-						"          plast_name,",
-						"          pemail,",
-						"          phire_date,",
-						"          pdepartment,",
-						"          pgender,",
-						"          psalary,",
-						"          pregion_id,",
-						"          pisactivecolumn,",
-						"          pseq_id",
-						"     ),",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> select2",
-						"select2 derive(pisactivecolumn = 0) ~> derivedColumn3",
-						"derivedColumn3 alterRow(updateIf(1==1)) ~> alterRow1",
-						"surrogateKey1 sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     deletable:false,",
-						"     insertable:true,",
-						"     updateable:false,",
-						"     upsertable:false,",
-						"     format: 'table',",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     saveOrder: 2,",
-						"     errorHandlingOption: 'stopOnFirstError') ~> sink1",
-						"alterRow1 sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     deletable:false,",
-						"     insertable:false,",
-						"     updateable:true,",
-						"     upsertable:false,",
-						"     keys:['seq_id'],",
-						"     format: 'table',",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     saveOrder: 1,",
-						"     errorHandlingOption: 'stopOnFirstError',",
-						"     mapColumn(",
-						"          employee_id = pemployee_id,",
-						"          first_name = pfirst_name,",
-						"          last_name = plast_name,",
-						"          email = pemail,",
-						"          hire_date = phire_date,",
-						"          department = pdepartment,",
-						"          gender = pgender,",
-						"          salary = psalary,",
-						"          region_id = pregion_id,",
-						"          isactivecolumn = pisactivecolumn,",
-						"          seq_id = pseq_id",
-						"     )) ~> sink2"
-					]
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "RAW",
+						"fileSystem": "container1"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Pregnancies",
+						"type": "String"
+					},
+					{
+						"name": "Glucose",
+						"type": "String"
+					},
+					{
+						"name": "BloodPressure",
+						"type": "String"
+					},
+					{
+						"name": "SkinThickness",
+						"type": "String"
+					},
+					{
+						"name": "Insulin",
+						"type": "String"
+					},
+					{
+						"name": "BMI",
+						"type": "String"
+					},
+					{
+						"name": "DiabetesPedigreeFunction",
+						"type": "String"
+					},
+					{
+						"name": "Age",
+						"type": "String"
+					},
+					{
+						"name": "Outcome",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_incre_parquet')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "CLEANSED",
+						"fileSystem": "container1"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_rawParquetsink1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "purchaseheader.parquet",
+						"folderPath": "RAW/Rawparquet",
+						"fileSystem": "container1"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_rawParquetsink2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "purchaseorder.parquet",
+						"folderPath": "RAW/Rawparquet",
+						"fileSystem": "container1"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_rawcsvtocleansedparquet')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "purchaseorder.csv",
+						"folderPath": "RAW",
+						"fileSystem": "container1"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"nullValue": "EMAILNULL",
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "PurchaseOrderID",
+						"type": "String"
+					},
+					{
+						"name": "PurchaseOrderDetailID",
+						"type": "String"
+					},
+					{
+						"name": "DueDate",
+						"type": "String"
+					},
+					{
+						"name": "OrderQty",
+						"type": "String"
+					},
+					{
+						"name": "ProductID",
+						"type": "String"
+					},
+					{
+						"name": "UnitPrice",
+						"type": "String"
+					},
+					{
+						"name": "LineTotal",
+						"type": "String"
+					},
+					{
+						"name": "ReceivedQty",
+						"type": "String"
+					},
+					{
+						"name": "RejectedQty",
+						"type": "String"
+					},
+					{
+						"name": "StockedQty",
+						"type": "String"
+					},
+					{
+						"name": "ModifiedDate",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_restapisink')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "RAW/RestApi/Sink",
+						"fileSystem": "container1"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_sqldb')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_Staging",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "Jsonstream"
 				}
 			},
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DF_sink1_SCD2')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
+			"name": "[concat(parameters('factoryName'), '/DS_streamRasbPiSource')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"type": "MappingDataFlow",
+				"linkedServiceName": {
+					"referenceName": "LS_Cont2StreamADf",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
 				"typeProperties": {
-					"sources": [
-						{
-							"dataset": {
-								"referenceName": "DS_employees",
-								"type": "DatasetReference"
-							},
-							"name": "source1"
-						}
-					],
-					"sinks": [
-						{
-							"dataset": {
-								"referenceName": "DS_empNew",
-								"type": "DatasetReference"
-							},
-							"name": "sink1"
-						}
-					],
-					"transformations": [
-						{
-							"name": "derivedColumn1"
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "0_823aef7406dd4a1c9cd79df58dbd3e50_1.json",
+						"fileSystem": "container2stream"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"messageId": {
+							"type": "integer"
 						},
-						{
-							"name": "surrogateKey1"
-						}
-					],
-					"scriptLines": [
-						"source(output(",
-						"          employee_id as integer,",
-						"          first_name as string,",
-						"          last_name as string,",
-						"          email as string,",
-						"          hire_date as date,",
-						"          department as string,",
-						"          gender as string,",
-						"          salary as integer,",
-						"          region_id as integer",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     isolationLevel: 'READ_UNCOMMITTED',",
-						"     format: 'table') ~> source1",
-						"source1 derive(isactivecolumn = 0) ~> derivedColumn1",
-						"derivedColumn1 keyGenerate(output(seq_id as long),",
-						"     startAt: 1L,",
-						"     stepValue: 1L) ~> surrogateKey1",
-						"surrogateKey1 sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     deletable:false,",
-						"     insertable:true,",
-						"     updateable:false,",
-						"     upsertable:false,",
-						"     format: 'table',",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
-					]
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DF_streamedit')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "MappingDataFlow",
-				"typeProperties": {
-					"sources": [
-						{
-							"dataset": {
-								"referenceName": "DS_Jsonstream",
-								"type": "DatasetReference"
-							},
-							"name": "source1"
-						}
-					],
-					"sinks": [
-						{
-							"dataset": {
-								"referenceName": "DS_IOT",
-								"type": "DatasetReference"
-							},
-							"name": "sink1"
-						}
-					],
-					"transformations": [
-						{
-							"name": "derivedColumn1"
+						"deviceId": {
+							"type": "string"
 						},
-						{
-							"name": "select1"
-						}
-					],
-					"scriptLines": [
-						"source(output(",
-						"          messageId as integer,",
-						"          deviceId as string,",
-						"          temperature as double,",
-						"          humidity as double,",
-						"          EventProcessedUtcTime as string,",
-						"          PartitionId as integer,",
-						"          EventEnqueuedUtcTime as string,",
-						"          IoTHub as (MessageId as string, CorrelationId as string, ConnectionDeviceId as string, ConnectionDeviceGenerationId as string, EnqueuedTime as string)",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: false,",
-						"     documentForm: 'documentPerLine') ~> source1",
-						"source1 derive(temperature = round(temperature, 2),",
-						"          humidity = round(humidity, 2)) ~> derivedColumn1",
-						"derivedColumn1 select(mapColumn(",
-						"          messageId,",
-						"          deviceId,",
-						"          temperature,",
-						"          humidity,",
-						"          EventProcessedUtcTime,",
-						"          PartitionId,",
-						"          EventEnqueuedUtcTime,",
-						"          IoTHub",
-						"     ),",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> select1",
-						"select1 sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     format: 'parquet',",
-						"     umask: 0022,",
-						"     preCommands: [],",
-						"     postCommands: [],",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> sink1"
-					]
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DF_transformation_purchase')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "MappingDataFlow",
-				"typeProperties": {
-					"sources": [
-						{
-							"dataset": {
-								"referenceName": "DS_rawParquetsink1",
-								"type": "DatasetReference"
-							},
-							"name": "source1"
+						"temperature": {
+							"type": "number"
 						},
-						{
-							"dataset": {
-								"referenceName": "DS_rawParquetsink2",
-								"type": "DatasetReference"
-							},
-							"name": "source2"
-						}
-					],
-					"sinks": [
-						{
-							"dataset": {
-								"referenceName": "DS_curatedParquettransformed",
-								"type": "DatasetReference"
-							},
-							"name": "sink1"
-						}
-					],
-					"transformations": [
-						{
-							"name": "surrogateKey1"
+						"humidity": {
+							"type": "number"
 						},
-						{
-							"name": "surrogateKey2"
+						"EventProcessedUtcTime": {
+							"type": "string"
 						},
-						{
-							"name": "cast1"
+						"PartitionId": {
+							"type": "integer"
 						},
-						{
-							"name": "cast2"
+						"EventEnqueuedUtcTime": {
+							"type": "string"
 						},
-						{
-							"name": "join1"
-						}
-					],
-					"scriptLines": [
-						"source(output(",
-						"          PurchaseOrderID as string,",
-						"          RevisionNumber as string,",
-						"          Status as string,",
-						"          EmployeeID as string,",
-						"          VendorID as string,",
-						"          ShipMethodID as string,",
-						"          OrderDate as string,",
-						"          ShipDate as string,",
-						"          SubTotal as string,",
-						"          TaxAmt as string,",
-						"          Freight as string,",
-						"          TotalDue as string,",
-						"          ModifiedDate as string",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: false,",
-						"     format: 'parquet') ~> source1",
-						"source(output(",
-						"          PurchaseOrderID as string,",
-						"          PurchaseOrderDetailID as string,",
-						"          DueDate as string,",
-						"          OrderQty as string,",
-						"          ProductID as string,",
-						"          UnitPrice as string,",
-						"          LineTotal as string,",
-						"          ReceivedQty as string,",
-						"          RejectedQty as string,",
-						"          StockedQty as string,",
-						"          ModifiedDate as string",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: false,",
-						"     format: 'parquet') ~> source2",
-						"source1 keyGenerate(output(seq_id as long),",
-						"     startAt: 1L,",
-						"     stepValue: 1L) ~> surrogateKey1",
-						"source2 keyGenerate(output(seq_id as long),",
-						"     startAt: 1L,",
-						"     stepValue: 1L) ~> surrogateKey2",
-						"surrogateKey1 cast(output(",
-						"          PurchaseOrderID as integer,",
-						"          RevisionNumber as integer,",
-						"          Status as integer,",
-						"          EmployeeID as integer,",
-						"          VendorID as integer,",
-						"          ShipMethodID as integer,",
-						"          OrderDate as date,",
-						"          ShipDate as date,",
-						"          SubTotal as integer,",
-						"          TaxAmt as string,",
-						"          Freight as integer,",
-						"          TotalDue as integer",
-						"     ),",
-						"     errors: true) ~> cast1",
-						"surrogateKey2 cast(output(",
-						"          PurchaseOrderID as integer,",
-						"          PurchaseOrderDetailID as integer,",
-						"          DueDate as date,",
-						"          OrderQty as integer,",
-						"          ProductID as integer,",
-						"          UnitPrice as integer,",
-						"          LineTotal as integer,",
-						"          ReceivedQty as integer,",
-						"          RejectedQty as integer,",
-						"          StockedQty as integer,",
-						"          ModifiedDate as date,",
-						"          seq_id as long",
-						"     ),",
-						"     errors: true) ~> cast2",
-						"cast1, cast2 join(cast1@PurchaseOrderID == cast2@PurchaseOrderID,",
-						"     joinType:'left',",
-						"     matchType:'exact',",
-						"     ignoreSpaces: false,",
-						"     broadcast: 'auto')~> join1",
-						"join1 sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     format: 'parquet',",
-						"     umask: 0022,",
-						"     preCommands: [],",
-						"     postCommands: [],",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> sink1"
-					]
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DF_SCD1')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "MappingDataFlow",
-				"typeProperties": {
-					"sources": [
-						{
-							"dataset": {
-								"referenceName": "DelimitedText1",
-								"type": "DatasetReference"
-							},
-							"name": "source1"
-						}
-					],
-					"sinks": [
-						{
-							"dataset": {
-								"referenceName": "AzureSqlTable1",
-								"type": "DatasetReference"
-							},
-							"name": "sink1",
-							"rejectedDataLinkedService": {
-								"referenceName": "AzureDataLakeStorage2",
-								"type": "LinkedServiceReference"
+						"IoTHub": {
+							"type": "object",
+							"properties": {
+								"MessageId": {
+									"type": "null"
+								},
+								"CorrelationId": {
+									"type": "null"
+								},
+								"ConnectionDeviceId": {
+									"type": "string"
+								},
+								"ConnectionDeviceGenerationId": {
+									"type": "string"
+								},
+								"EnqueuedTime": {
+									"type": "string"
+								}
 							}
 						}
-					],
-					"transformations": [
-						{
-							"name": "alterRow1"
-						}
-					],
-					"scriptLines": [
-						"source(output(",
-						"          ID as short,",
-						"          Name as string,",
-						"          Salary as integer",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     inferDriftedColumnTypes: true,",
-						"     ignoreNoFilesFound: false) ~> source1",
-						"source1 alterRow(upsertIf(1 == 1)) ~> alterRow1",
-						"alterRow1 sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     deletable:false,",
-						"     insertable:false,",
-						"     updateable:false,",
-						"     upsertable:true,",
-						"     keys:['ID'],",
-						"     format: 'table',",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     errorHandlingOption: 'stopOnFirstError',",
-						"     mapColumn(",
-						"          ID,",
-						"          Name,",
-						"          Salary",
-						"     )) ~> sink1"
-					]
+					}
 				}
 			},
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/PL_DF_SCD2_Purchase')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
+			"name": "[concat(parameters('factoryName'), '/DelimitedText1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"activities": [
-					{
-						"name": "dataflow2",
-						"type": "ExecuteDataFlow",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataflow": {
-								"referenceName": "DF_SCD2_purchase",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"source1": {},
-									"source2": {},
-									"sink1": {},
-									"sink2": {}
-								}
-							},
-							"staging": {},
-							"compute": {
-								"coreCount": 8,
-								"computeType": "General"
-							},
-							"traceLevel": "Fine"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage2",
+					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
-				"lastPublishTime": "2022-12-19T11:31:47Z"
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "pract.csv",
+						"fileSystem": "container1"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					}
+				]
 			},
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/PL_DF_sink1_SCD2')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
+			"name": "[concat(parameters('factoryName'), '/DelimitedText2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"activities": [
-					{
-						"name": "Data flow1",
-						"type": "ExecuteDataFlow",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataflow": {
-								"referenceName": "DF_sink1_SCD2",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"source1": {},
-									"sink1": {}
-								}
-							},
-							"staging": {},
-							"compute": {
-								"coreCount": 8,
-								"computeType": "General"
-							},
-							"traceLevel": "Fine"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
 				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/DF_sink1_SCD2')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/PL_DF_transformation_purchase')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Data flow1",
-						"type": "ExecuteDataFlow",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataflow": {
-								"referenceName": "DF_transformation_purchase",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"source1": {},
-									"source2": {},
-									"sink1": {}
-								}
-							},
-							"staging": {},
-							"compute": {
-								"coreCount": 8,
-								"computeType": "General"
-							},
-							"traceLevel": "Fine"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "pract.csv",
+						"folderPath": "current",
+						"fileSystem": "trial"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
 				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/DF_transformation_purchase')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/PL_dataflow3')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
+				"schema": [
 					{
-						"name": "Data flow1",
-						"type": "ExecuteDataFlow",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataflow": {
-								"referenceName": "DF_3",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"source1": {},
-									"source2": {},
-									"sink1": {},
-									"sink2": {}
-								}
-							},
-							"staging": {},
-							"compute": {
-								"coreCount": 8,
-								"computeType": "General"
-							},
-							"traceLevel": "Fine"
-						}
+						"name": "ID",
+						"type": "String"
+					},
+					{
+						"name": "Name",
+						"type": "String"
+					},
+					{
+						"name": "Salary",
+						"type": "String"
 					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"annotations": []
+				]
 			},
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/PL_dataflowPurchase')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
+			"name": "[concat(parameters('factoryName'), '/DestinationDataset_a50')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"activities": [
-					{
-						"name": "Data flow incremental",
-						"type": "ExecuteDataFlow",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataflow": {
-								"referenceName": "DF_transformation_purchase",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"source1": {},
-									"source2": {},
-									"sink1": {}
-								}
-							},
-							"staging": {},
-							"compute": {
-								"coreCount": 8,
-								"computeType": "General"
-							},
-							"traceLevel": "Fine"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage3",
+					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
-				"lastPublishTime": "2022-12-19T11:31:47Z"
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "destination"
+					}
+				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/DF_transformation_purchase')]"
-			]
+			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/SCD1 DF pipeline')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
+			"name": "[concat(parameters('factoryName'), '/DestinationDataset_g55')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"activities": [
-					{
-						"name": "Data flow1",
-						"type": "ExecuteDataFlow",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataflow": {
-								"referenceName": "DF_SCD1",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"source1": {},
-									"sink1": {}
-								}
-							},
-							"staging": {},
-							"compute": {
-								"coreCount": 8,
-								"computeType": "General"
-							},
-							"traceLevel": "Fine"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage3",
+					"type": "LinkedServiceReference"
 				},
-				"annotations": []
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "destination"
+					}
+				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/DF_SCD1')]"
-			]
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DestinationDataset_mub')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage3",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "destination"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DestinationDataset_ors')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage3",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "destination"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DestinationDataset_sis')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage5",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "destination"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/FTP_Binary_source')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "FtpServer1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "FtpServerLocation",
+						"fileName": "REP1856.csv",
+						"folderPath": "reda"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SourceDataset_a50')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage3",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "source"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SourceDataset_g55')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage3",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "source"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SourceDataset_mub')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage3",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "source"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SourceDataset_ors')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage3",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "source"
+					}
+				}
+			},
+			"dependsOn": []
 		}
 	]
 }

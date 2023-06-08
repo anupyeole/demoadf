@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "DFanup"
 		},
+		"ADLSGen2_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ADLSGen2'"
+		},
 		"AzureBlobStorage1_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
@@ -15,13 +19,49 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
 		},
+		"AzureDataLakeStorage2_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage2'"
+		},
+		"AzureDataLakeStorage3_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage3'"
+		},
+		"AzureDataLakeStorage4_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage4'"
+		},
+		"AzureDataLakeStorage5_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage5'"
+		},
 		"AzureSqlDatabase1_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
 		},
+		"FtpServer1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'FtpServer1'"
+		},
+		"FtpServer2_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'FtpServer2'"
+		},
+		"LS_AzureDataLakeLOOKUP_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_AzureDataLakeLOOKUP'"
+		},
+		"LS_AzureSqlDatabase2_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_AzureSqlDatabase2'"
+		},
 		"LS_Cont2StreamADf_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'LS_Cont2StreamADf'"
+		},
+		"LS_SQLdbLookup_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_SQLdbLookup'"
 		},
 		"LS_Staging_connectionString": {
 			"type": "secureString",
@@ -31,11 +71,55 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'LS_sqltab'"
 		},
-		"AzureDataLakeStorage2_accountKey": {
+		"SQLDW_connectionString": {
 			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage2'"
+			"metadata": "Secure string for 'connectionString' of 'SQLDW'"
+		},
+		"SQLdb_dtShare_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SQLdb_dtShare'"
+		},
+		"ADLSGen2_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://usecase1adls99.dfs.core.windows.net/"
 		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://usecase1adls99.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage2_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://usecase1adls99.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage3_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://usecase1adls99.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage4_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://usecase1adls99.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage5_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://usecase1adls99.dfs.core.windows.net/"
+		},
+		"FtpServer1_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "ftp://ftp.dlptest.com/"
+		},
+		"FtpServer1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "dlpuser"
+		},
+		"FtpServer2_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "ftp://ftp.dlptest.com/"
+		},
+		"FtpServer2_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "dlpuser"
+		},
+		"LS_AzureDataLakeLOOKUP_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://usecase1adls99.dfs.core.windows.net/"
 		},
@@ -43,9 +127,9 @@
 			"type": "string",
 			"defaultValue": "https://usecase1adls99.dfs.core.windows.net/"
 		},
-		"AzureDataLakeStorage2_properties_typeProperties_url": {
+		"trigger1_trial_properties_typeProperties_scope": {
 			"type": "string",
-			"defaultValue": "https://usecase1adls99.dfs.core.windows.net/"
+			"defaultValue": "/subscriptions/4bc5b9f0-8d3a-44ad-90b9-ae12564461a5/resourceGroups/RG-Anup/providers/Microsoft.Storage/storageAccounts/usecase1adls99"
 		},
 		"containerUri": {
 			"type": "string",
@@ -74,17 +158,47 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"ADLSGen2_accountKey": {
+						"value": "[parameters('ADLSGen2_accountKey')]"
+					},
 					"AzureBlobStorage1_connectionString": {
 						"value": "[parameters('AzureBlobStorage1_connectionString')]"
 					},
 					"AzureDataLakeStorage1_accountKey": {
 						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
 					},
+					"AzureDataLakeStorage2_accountKey": {
+						"value": "[parameters('AzureDataLakeStorage2_accountKey')]"
+					},
+					"AzureDataLakeStorage3_accountKey": {
+						"value": "[parameters('AzureDataLakeStorage3_accountKey')]"
+					},
+					"AzureDataLakeStorage4_accountKey": {
+						"value": "[parameters('AzureDataLakeStorage4_accountKey')]"
+					},
+					"AzureDataLakeStorage5_accountKey": {
+						"value": "[parameters('AzureDataLakeStorage5_accountKey')]"
+					},
 					"AzureSqlDatabase1_connectionString": {
 						"value": "[parameters('AzureSqlDatabase1_connectionString')]"
 					},
+					"FtpServer1_password": {
+						"value": "[parameters('FtpServer1_password')]"
+					},
+					"FtpServer2_password": {
+						"value": "[parameters('FtpServer2_password')]"
+					},
+					"LS_AzureDataLakeLOOKUP_accountKey": {
+						"value": "[parameters('LS_AzureDataLakeLOOKUP_accountKey')]"
+					},
+					"LS_AzureSqlDatabase2_connectionString": {
+						"value": "[parameters('LS_AzureSqlDatabase2_connectionString')]"
+					},
 					"LS_Cont2StreamADf_accountKey": {
 						"value": "[parameters('LS_Cont2StreamADf_accountKey')]"
+					},
+					"LS_SQLdbLookup_connectionString": {
+						"value": "[parameters('LS_SQLdbLookup_connectionString')]"
 					},
 					"LS_Staging_connectionString": {
 						"value": "[parameters('LS_Staging_connectionString')]"
@@ -92,17 +206,47 @@
 					"LS_sqltab_connectionString": {
 						"value": "[parameters('LS_sqltab_connectionString')]"
 					},
-					"AzureDataLakeStorage2_accountKey": {
-						"value": "[parameters('AzureDataLakeStorage2_accountKey')]"
+					"SQLDW_connectionString": {
+						"value": "[parameters('SQLDW_connectionString')]"
+					},
+					"SQLdb_dtShare_connectionString": {
+						"value": "[parameters('SQLdb_dtShare_connectionString')]"
+					},
+					"ADLSGen2_properties_typeProperties_url": {
+						"value": "[parameters('ADLSGen2_properties_typeProperties_url')]"
 					},
 					"AzureDataLakeStorage1_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
 					},
-					"LS_Cont2StreamADf_properties_typeProperties_url": {
-						"value": "[parameters('LS_Cont2StreamADf_properties_typeProperties_url')]"
-					},
 					"AzureDataLakeStorage2_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage2_properties_typeProperties_url')]"
+					},
+					"AzureDataLakeStorage3_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage3_properties_typeProperties_url')]"
+					},
+					"AzureDataLakeStorage4_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage4_properties_typeProperties_url')]"
+					},
+					"AzureDataLakeStorage5_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage5_properties_typeProperties_url')]"
+					},
+					"FtpServer1_properties_typeProperties_host": {
+						"value": "[parameters('FtpServer1_properties_typeProperties_host')]"
+					},
+					"FtpServer1_properties_typeProperties_userName": {
+						"value": "[parameters('FtpServer1_properties_typeProperties_userName')]"
+					},
+					"FtpServer2_properties_typeProperties_host": {
+						"value": "[parameters('FtpServer2_properties_typeProperties_host')]"
+					},
+					"FtpServer2_properties_typeProperties_userName": {
+						"value": "[parameters('FtpServer2_properties_typeProperties_userName')]"
+					},
+					"LS_AzureDataLakeLOOKUP_properties_typeProperties_url": {
+						"value": "[parameters('LS_AzureDataLakeLOOKUP_properties_typeProperties_url')]"
+					},
+					"LS_Cont2StreamADf_properties_typeProperties_url": {
+						"value": "[parameters('LS_Cont2StreamADf_properties_typeProperties_url')]"
 					}
 				}
 			},
@@ -146,6 +290,49 @@
 			},
 			"dependsOn": [
 				"[resourceId('Microsoft.Resources/deployments', 'DFanup_ArmTemplate_1')]"
+			]
+		},
+		{
+			"name": "DFanup_ArmTemplate_3",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_3.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'DFanup_ArmTemplate_2')]"
+			]
+		},
+		{
+			"name": "DFanup_ArmTemplate_4",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_4.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"trigger1_trial_properties_typeProperties_scope": {
+						"value": "[parameters('trigger1_trial_properties_typeProperties_scope')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'DFanup_ArmTemplate_3')]"
 			]
 		}
 	]
