@@ -1,5 +1,5 @@
 {
-	"name": "DF_streamedit",
+	"name": "DF_streamedit_IOT",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
